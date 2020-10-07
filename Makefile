@@ -205,3 +205,10 @@ version.h:
 
 check: $(FEXC_LINKS)
 	make -C tests/
+
+uart0-h5.toc0: mktoc0.rb uart0-helloworld-sdboot.bin
+	./mktoc0.rb privkey.pem uart0-helloworld-sdboot.bin $@ 0x10000
+
+uart0-h5-evil.toc0: mktoc0.rb uart0-helloworld-sdboot.bin
+	# 0x20 is the address of the infinite loop in the brom
+	./mktoc0.rb privkey.pem uart0-helloworld-sdboot.bin $@ 0x20

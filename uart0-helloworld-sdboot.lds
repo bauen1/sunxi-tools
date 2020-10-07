@@ -17,7 +17,7 @@
 
 SECTIONS
 {
-	. = 0x0000;
+	. = 0x10000; /* H5 */
 	.start    : { *(.start) }
 	.text     : { *(.text) }
 	/DISCARD/ : { *(.dynstr*) }

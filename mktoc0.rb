@@ -14,16 +14,16 @@
 
 require './libtoc0.rb'
 
-if ARGV.length < 3
-	puts "Usage: #{$PROGRAM_NAME} key_file input_file output_file"
+if ARGV.length < 4
+	puts "Usage: #{$PROGRAM_NAME} key_file input_file output_file load_address"
 	puts
 	puts "Example:\n"
 	puts "   openssl genrsa -out privkey.pem 2048"
-	puts "   #{$PROGRAM_NAME} privkey.pem sunxi-spl.bin output.img"
+	puts "   #{$PROGRAM_NAME} privkey.pem sunxi-spl.bin output.img 0x0"
 	puts "   dd if=output.img of=/dev/sdX bs=1024 seek=8"
 	exit false
 end
 
 File.binwrite(ARGV[2], TOC0::mktoc0(File.read(ARGV[0]),
                                     File.binread(ARGV[1]),
-                                    0x0))
+                                    ARGV[3].to_i(16)))

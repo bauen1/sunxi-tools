@@ -590,20 +590,9 @@ int main(void)
 	else
 		uart0_puts("unknown Allwinner SoC!\n");
 
-	switch (get_boot_device()) {
-	case BOOT_DEVICE_FEL:
-		uart0_puts("Returning back to FEL.\n");
-		return 0;
-	case BOOT_DEVICE_MMC0:
-		uart0_puts("Booted from MMC0, entering an infinite loop.\n");
-		while (1) {}
-	case BOOT_DEVICE_SPI:
-		uart0_puts("Booted from SPI0, entering an infinite loop.\n");
-		while (1) {}
-	default:
-		uart0_puts("Booted from unknown media, entering an infinite loop.\n");
-		while (1) {}
-	};
+    uart0_puts("Entering an infinite loop\n");
 
-	return 0;
+    while(1) {
+        __asm__ __volatile__("nop");
+    }
 }
