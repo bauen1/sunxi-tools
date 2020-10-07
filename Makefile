@@ -212,3 +212,9 @@ uart0-h5.toc0: mktoc0.rb uart0-helloworld-sdboot.bin
 uart0-h5-evil.toc0: mktoc0.rb uart0-helloworld-sdboot.bin
 	# 0x20 is the address of the infinite loop in the brom
 	./mktoc0.rb privkey.pem uart0-helloworld-sdboot.bin $@ 0x20
+
+evil-uart0.elf: evil_head.S evil-uart0.c evil-uart0.lds
+	$(CROSS_CC) -g $(ARM_ELF_FLAGS) evil_head.S evil-uart0.c -nostdlib -o $@ -T evil-uart0.lds
+
+evil-uart0.toc0: evil-uart0.elf
+	$(CROSS_COMPILE)objcopy -O binary $< $@
